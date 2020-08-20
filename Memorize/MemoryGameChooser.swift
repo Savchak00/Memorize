@@ -16,11 +16,11 @@ struct MemoryGameChooser: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(self.store.themes) { model in
-                    NavigationLink(destination: EmojiMemoryGameView(viewModel: model)
-                        .navigationBarTitle(self.store.name(for: model))
+                ForEach(0..<self.store.themes.count, id:\.self) { index in
+                    NavigationLink(destination: EmojiMemoryGameView(viewModel: self.store.themes[index])
+                        .navigationBarTitle(self.store.themes[index].theme.name)
                     ) {
-                        MemoryGameChooserListItem(themeid: model.id, indexInThemes: self.store.themes.firstIndex(mathing: model)!,isEditing: self.editMode.isEditing)
+                        MemoryGameChooserListItem(indexInThemes: index, isEditing: self.editMode.isEditing)
                     }
                 }
                 .onDelete { indexSet in

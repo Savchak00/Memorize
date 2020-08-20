@@ -12,7 +12,6 @@ struct MemoryGameChooserListItem: View {
     
     @EnvironmentObject var store: MemoryGameStore
     
-    var themeid: UUID
     var indexInThemes: Int
     
     @State private var showGameEditor = false
@@ -31,7 +30,7 @@ struct MemoryGameChooserListItem: View {
 
                     }
                     .sheet(isPresented: $showGameEditor, content: {
-                        GameEditor(showGameEditor: self.$showGameEditor, themeId: self.indexInThemes)
+                        GameEditor(showGameEditor: self.$showGameEditor, themeId: self.indexInThemes).environmentObject(self.store)
                     })
             }
             VStack(alignment: .leading) {
@@ -63,6 +62,7 @@ struct GameEditor: View {
                 HStack {
                     Spacer()
                     Button(action: {
+                        self.store.renameTheme(from: self.themeId, to: self.gameName)
                         self.showGameEditor = false
                     }, label: { Text("Done") }).padding()
                 }
@@ -70,11 +70,10 @@ struct GameEditor: View {
             Divider()
             Form {
                 Section {
-                    TextField("Game Name", text: $gameName, onEditingChanged: { began in
-                        if !began {
-                            self.store.renameTheme(from: self.themeId, to: self.gameName)
-                        }
-                    })
+                    TextField("Game Name", text: $gameName) {
+                        self.store.renameTheme(from: self.themeId, to: self.gameName)
+                        self.showGameEditor = false
+                    }
                 }
 //                Section(header: Text("Add emoji").bold()) {
 //                    ZStack {
