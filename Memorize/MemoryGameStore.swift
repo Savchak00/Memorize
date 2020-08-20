@@ -33,7 +33,7 @@ class MemoryGameStore: ObservableObject {
     
     func renameTheme(from id: Int ,to newName: String) {
         themes[id].theme.changeName(newName: newName)
-        print(themes[id].theme.name)
+        print("func renameTheme(from id: Int ,to newName: String) \(themes[id].theme.name)")
     }
     
     
@@ -46,7 +46,7 @@ class MemoryGameStore: ObservableObject {
         EmojiMemoryGame(id: UUID(), theme: EmojiMemoryGameTheme(name: "Faces", emojis: ["😀","😄","😃","😊","😋","😡"], color: UIColor.RGB(red:1,green:1,blue:0,alpha:1)))
         ] {
         willSet {
-            print(newValue)
+            print("willSet: \(newValue)")
         }
     }
     

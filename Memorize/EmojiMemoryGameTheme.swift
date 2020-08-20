@@ -43,7 +43,7 @@ struct EmojiMemoryGameTheme: Codable {
     
     mutating func changeName(newName: String) {
         self.name = newName
-        print("\(self.name)")
+        print("mutating func changeName(newName: String): \(self.name)")
     }
     
     var json: Data? {

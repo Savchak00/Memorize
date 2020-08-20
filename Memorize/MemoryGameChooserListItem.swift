@@ -11,12 +11,8 @@ import SwiftUI
 struct MemoryGameChooserListItem: View {
     
     @EnvironmentObject var store: MemoryGameStore
-    
-    var themeid: UUID
-    var indexInThemes: Int
-    
     @State private var showGameEditor = false
-    
+    var indexInThemes: Int
     var isEditing: Bool
     
     var body: some View {
@@ -72,7 +68,8 @@ struct GameEditor: View {
             Form {
                 Section {
                     TextField("Game Name", text: $gameName) {
-                            self.store.renameTheme(from: self.themeId, to: self.gameName)
+                        self.store.renameTheme(from: self.themeId, to: self.gameName)
+                        self.showGameEditor = false
                     }
                 }
 //                Section(header: Text("Add emoji").bold()) {
